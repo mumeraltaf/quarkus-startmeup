@@ -12,7 +12,7 @@ public class ReactiveGreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/hello-reactive")
           .then()
              .statusCode(200)
              .body(is("Hello RESTEasy Reactive"));
