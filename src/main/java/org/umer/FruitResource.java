@@ -10,7 +10,7 @@ import org.umer.domain.Fruit;
 import org.umer.service.FruitService;
 
 @Path("/fruits")
-public class GreetingResource {
+public class FruitResource {
 
     @Inject
     FruitService service;
