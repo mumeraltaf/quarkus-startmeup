@@ -6,14 +6,14 @@
   <artifactId>startmeup</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <failsafe.useModulePath>false</failsafe.useModulePath>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>2.7.4.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.12.0.CR1</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
   <dependencyManagement>
@@ -59,21 +59,22 @@
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-core</artifactId>
+      <version>3.32.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-postgres</artifactId>
-      <version>3.28.0</version>
+      <version>3.32.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-sqlobject</artifactId>
-      <version>3.28.0</version>
+      <version>3.32.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-stringtemplate4</artifactId>
-      <version>3.28.0</version>
+      <version>3.32.0</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -82,7 +83,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.22</version>
+      <version>1.18.24</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

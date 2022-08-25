@@ -26,7 +26,7 @@ public class FruitService {
 
     }
 
-    public Integer add(Fruit fruit) throws Exception {
+    public Fruit add(Fruit fruit) throws Exception {
 
 
         Jdbi jdbi = databaseConnector.getJdbi();

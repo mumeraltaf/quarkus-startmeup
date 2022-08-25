@@ -2,31 +2,20 @@ package org.umer;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.umer.domain.Fruit;
 import org.umer.service.FruitService;
 
-@Path("/hello")
+@Path("/fruits")
 public class GreetingResource {
 
     @Inject
     FruitService service;
 
-
-
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
-    }
-
-    @GET
-    @Path("/fruits")
-    @Produces(MediaType.TEXT_PLAIN)
     public List<Fruit> getFruits() {
         try {
             return service.list();
@@ -34,4 +23,16 @@ public class GreetingResource {
             throw new InternalServerErrorException();
         }
     }
+
+    @POST
+    @Operation(summary = "adds a new fruit")
+    public Response saveFruit(Fruit fruit) {
+        try {
+            return Response.ok(service.add(fruit)).build();
+        } catch (Exception e) {
+            throw new InternalServerErrorException();
+        }
+    }
+
+
 }
