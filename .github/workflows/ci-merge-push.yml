@@ -1,15 +1,13 @@
 ## This is basic continuous integration build for your Quarkus application.
 
-name: Quarkus Codestart CI
+name: Merge to main and push artefacts
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  build:
+  push:
     runs-on: ubuntu-latest
     environment: build
     steps:
