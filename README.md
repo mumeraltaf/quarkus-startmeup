@@ -9,6 +9,7 @@ Following features have been implemented:
 * Integration Tests
 * Liquibase DB migrations
 * Multi arch docker image builds using buildx
+* Integrated with GitHub CI to run tests and build/push container images
 
 
 ## Running the application in dev mode
@@ -43,9 +44,9 @@ export QUARKUS_CONTAINER_IMAGE_USERNAME=<REPO_PASSWORD>
 
 ## Run application using docker-compose
 
-An example docker compose is given in `/docker-compose` directory.
+An example docker compose is given in `/deployment/docker-compose` directory.
 ```shell
-cd docker-compose
+cd deployment/docker-compose
 ```
 * Check/Update the provided `.env` file to change any parameters if needed like DB username/password etc.
 * Source the `.env` file
