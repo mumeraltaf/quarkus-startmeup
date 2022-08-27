@@ -1,20 +1,28 @@
 version: "3"
 services:
+
   postgresql-fruits:
     image: postgres:14.5
     restart: always
     ports:
-      - "5432:5432"
+      - ${FRUIT_DB_PORT}:5432
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: postgres
-      POSTGRES_USER: quarkus
-      POSTGRES_PASSWORD: testingisfun
-    container_name: postgresql-fruits
-
+      POSTGRES_USER: ${FRUIT_DB_USERNAME}
+      POSTGRES_PASSWORD: ${FRUIT_DB_PASSWORD}
+    container_name: ${FRUIT_DB_HOST}
 
   fruits:
-    image: maalt/startmeup:1.0.0-SNAPSHOT
+    image: umeraltaf/startmeup:1.0.0-SNAPSHOT
+    restart: always
     ports:
       - "8080:8080"
+    environment:
+      FRUIT_DB_USERNAME: ${FRUIT_DB_USERNAME}
+      FRUIT_DB_PASSWORD: ${FRUIT_DB_PASSWORD}
+      FRUIT_DB_HOST: ${FRUIT_DB_HOST}
+      FRUIT_DB_PORT: ${FRUIT_DB_PORT}
+    depends_on:
+      - postgresql-fruits

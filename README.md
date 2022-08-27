@@ -1,66 +1,63 @@
-# startmeup Project
+# Start-Me-Up
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This is a sample template project that uses [Quarkus](https://quarkus.io/) Java Framework.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Following features have been implemented:
+* OpenAPI documentation and SwaggerUI
+* PostgreSQL DB
+* JDBI for database interaction (without any ORM like Hibernate)
+* Integration Tests
+* Liquibase DB migrations
+* Multi arch docker image builds using buildx
+
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
+* I use IntelliJ IDEA for development, follow these guides to set up your IDE: [https://quarkus.io/guides/tooling](https://quarkus.io/guides/tooling)
+* Once set up a run configuration will automatically be created OR create once yourself and just hit run or debug on IDE
+
+
+## Build and push the Container image
+
+I have configured Quarkus to build Docker images for following platforms
+* linux/amd64
+* linux/arm64
+
+### Setup Container Repository 
+To use a remote docker repository set following ENV variables:
+
+```shell
+export QUARKUS_CONTAINER_IMAGE_REGISTRY=<REPO_URL>  # e.g. docker.io
+export QUARKUS_CONTAINER_IMAGE_USERNAME=<REPO_USERNAME>
+export QUARKUS_CONTAINER_IMAGE_USERNAME=<REPO_PASSWORD>
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+* If these variables are not provided the following build command will give error while uploading the image, but image will be available in local docker desktop repo.
 
-## Packaging and running the application
+### Build and push Image
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+```shell
+./mvnw clean package -Dquarkus.container-image.push=true
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+## Run application using docker-compose
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
+An example docker compose is given in `/docker-compose` directory.
+```shell
+cd docker-compose
+```
+* Check/Update the provided `.env` file to change any parameters if needed like DB username/password etc.
+* Source the `.env` file
+* Make sure the image repo and name for the `fruits` container matches to the image that built in the previous step.
+* Start the compose stack
+```shell
+docker-compose up -d
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/startmeup-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+* API application will be running at `http://localhost:8080`.
+* Check the Swagger UI documentation at [http://localhost:8080/q/swagger-ui](http://localhost:8080/q/swagger-ui)
 
 ## Related Guides
 
-- RESTEasy JAX-RS ([guide](https://quarkus.io/guides/rest-json)): REST endpoint framework implementing JAX-RS and more
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+- [Official Quarkus Guides](https://quarkus.io/guides/)
