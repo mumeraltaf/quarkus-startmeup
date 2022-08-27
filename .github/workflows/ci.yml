@@ -20,5 +20,13 @@ jobs:
           java-version: 17
       - name: Build and Run Tests
         run: ./mvnw verify -B
+        env:
+          QUARKUS_CONTAINER_IMAGE_REGISTRY: ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
+          QUARKUS_CONTAINER_IMAGE_USERNAME: ${{ secrets.QUARKUS_CONTAINER_IMAGE_USERNAME }}
+          QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{ secrets.QUARKUS_CONTAINER_IMAGE_PASSWORD }}
       - name: Build Container Image and Push to Repo
         run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true
+        env:
+          QUARKUS_CONTAINER_IMAGE_REGISTRY: ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
+          QUARKUS_CONTAINER_IMAGE_USERNAME: ${{ secrets.QUARKUS_CONTAINER_IMAGE_USERNAME }}
+          QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{ secrets.QUARKUS_CONTAINER_IMAGE_PASSWORD }}

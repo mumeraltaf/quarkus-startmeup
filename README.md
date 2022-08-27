@@ -30,7 +30,7 @@ To use a remote docker repository set following ENV variables:
 ```shell
 export QUARKUS_CONTAINER_IMAGE_REGISTRY=<REPO_URL>  # e.g. docker.io
 export QUARKUS_CONTAINER_IMAGE_USERNAME=<REPO_USERNAME>
-export QUARKUS_CONTAINER_IMAGE_USERNAME=<REPO_PASSWORD>
+export QUARKUS_CONTAINER_IMAGE_PASSWORD=<REPO_PASSWORD>
 ```
 
 * If these variables are not provided the following build command will give error while uploading the image, but image will be available in local docker desktop repo.
