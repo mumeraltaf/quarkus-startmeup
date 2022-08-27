@@ -10,6 +10,7 @@ Following features have been implemented:
 * Liquibase DB migrations
 * Multi arch docker image builds using buildx
 * Integrated with GitHub CI to run tests and build/push container images
+* Deploy on a Kubernetes Cluster
 
 
 ## Running the application in dev mode
@@ -58,6 +59,41 @@ docker-compose up -d
 
 * API application will be running at `http://localhost:8080`.
 * Check the Swagger UI documentation at [http://localhost:8080/q/swagger-ui](http://localhost:8080/q/swagger-ui)
+
+
+
+## Deploy Application on Kubernetes
+
+### Prerequisites:
+* A fully configured kubernetes cluster with following features:
+ * Nginx Ingress Controller installed and configured
+ * cert-manager installed and configured
+ * A `default` StorageClass installed and configured for PersistentVolumeClaims
+
+This repo: [openstack-kubernetes](https://github.com/mumeraltaf/openstack-kubernetes) can help set up all of the above on OpenStack using Terraform.
+If using other Cloud provider some changes to configs may be needed, mainly to the Terraform providers, K8s StorageClass and Ingresses.
+
+### Deploy:
+
+Once you have a functional K8s cluster, configure your deployment as follows:
+* Set your own secret values in `deployment/kubernetes/startmeup/secret/startmeup.yaml`, example values are provided
+* Update `deployment/kubernetes/startmeup/ingress/ingress.yaml` with your own host name
+
+Then deploy:
+```shell
+cd /deployment/kubernetes/
+kubectl apply startmeup/ns
+kubectl apply -f startmeup/ --recursive
+```
+
+Wait a couple of minutes for all services to come up and TLS configured, then get the ingress host using:
+
+```shell
+kubectl get ingress -n startmeup   
+```
+
+The app will be available on the `startmeup` host, and SwagerUI will be available on `https://<hostname>/q/swagger-ui`
+
 
 ## Related Guides
 
