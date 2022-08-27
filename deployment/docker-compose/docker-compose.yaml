@@ -15,7 +15,7 @@ services:
     container_name: ${FRUIT_DB_HOST}
 
   fruits:
-    image: umeraltaf/startmeup:1.0.0-SNAPSHOT
+    image: umeraltaf/startmeup:1.0.1-SNAPSHOT
     restart: always
     ports:
       - "8080:8080"
