@@ -24,13 +24,24 @@ public class FruitsResourceTest {
     @Inject
     FruitService fruitService;
 
-
     @Test
     public void testAddingAFruit() throws Exception {
 
         Fruit testFruit = new Fruit("test", "testRedApple","red is test");
         Fruit insertedFruit = fruitService.add(testFruit);
         Assertions.assertEquals(insertedFruit.getName(),testFruit.getName());
+
+    }
+
+    @Test
+    public void testAddingAndGettingFruit() throws Exception {
+
+        Fruit testFruit = new Fruit("test2", "testRedApple2","red is test2");
+        fruitService.add(testFruit);
+
+        Fruit fruitInserted = fruitService.findById(testFruit.getId());
+
+        Assertions.assertEquals(fruitInserted.getName(),testFruit.getName());
 
     }
 }

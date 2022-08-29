@@ -42,7 +42,7 @@ public class FruitService {
         });
     }
 
-    public Integer update(Fruit fruit) throws Exception {
+    public Fruit update(Fruit fruit) throws Exception {
 
 
         Jdbi jdbi = databaseConnector.getJdbi();
