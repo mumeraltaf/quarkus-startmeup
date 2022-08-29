@@ -11,6 +11,8 @@ spec:
     matchLabels:
       app: startmeup
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -18,7 +20,7 @@ spec:
     spec:
       containers:
         - name: startmeup-api
-          image: umeraltaf/startmeup:1.0.4-SNAPSHOT
+          image: umeraltaf/startmeup:1.0.11-SNAPSHOT
           imagePullPolicy: Always
           resources:
             requests:
@@ -29,7 +31,7 @@ spec:
             - containerPort: 8080
           env:
             - name: FRUIT_DB_HOST
-              value: "startmeup-postgresql"
+              value: "localhost"
             - name: FRUIT_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -42,3 +44,36 @@ spec:
                   key: FRUIT_DB_PASSWORD
             - name: FRUIT_DB_PORT
               value: "5432"
+        - name: startmeup-postgresql
+          image: postgres:14.5
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 8Gi
+          ports:
+            - containerPort: 5432
+          args: [ "-c", "max_connections=1000", "-c", "shared_buffers=3GB" ]
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: startmeup-secret
+                  key: FRUIT_DB_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: startmeup-secret
+                  key: FRUIT_DB_PASSWORD
+            - name: POSTGRES_DB
+              value: "postgres"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/fruit_db/
+          volumeMounts:
+            - name: startmeup-pgsql-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: startmeup-pgsql-storage
+          persistentVolumeClaim:
+            claimName: pgsql-pvc
