@@ -16,9 +16,12 @@ public interface FruitDao {
   Fruit add(@Bind("id") String id, @Bind("name") String name, @Bind("description") String description);
 
   @SqlUpdate("UPDATE FRUIT SET name = :name, description = :description " + "WHERE id = :id")
-  int update(@Bind("id") String id, @Bind("name") String name, @Bind("description") String description);
+  @GetGeneratedKeys
+  @RegisterBeanMapper(Fruit.class)
+  Fruit update(@Bind("id") String id, @Bind("name") String name, @Bind("description") String description);
 
   @SqlQuery("SELECT * FROM FRUIT WHERE id = :id")
+  @RegisterBeanMapper(Fruit.class)
   Fruit findById(@Bind("id") String id);
 
   @SqlQuery("SELECT * FROM FRUIT")
