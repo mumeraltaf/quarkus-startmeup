@@ -21,6 +21,7 @@ spec:
       containers:
         - name: startmeup-api
           image: umeraltaf/startmeup:1.0.14-SNAPSHOT
+
           imagePullPolicy: Always
           resources:
             requests:

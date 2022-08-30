@@ -53,5 +53,4 @@ public class FruitsResourceTest {
         Assertions.assertEquals(output,"new Dummy Value");
 
     }
-
 }
