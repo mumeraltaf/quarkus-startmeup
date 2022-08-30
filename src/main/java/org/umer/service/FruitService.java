@@ -42,6 +42,10 @@ public class FruitService {
         });
     }
 
+
+    public String dummyFeature(){
+        return "new Dummy Value";
+    }
     public Fruit update(Fruit fruit) throws Exception {
 
 
