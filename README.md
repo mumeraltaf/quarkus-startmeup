@@ -11,7 +11,8 @@ Following features have been implemented:
 * Multi arch docker image builds using buildx
 * Integrated with GitHub CI to run tests and build/push container images
 * Deploy on a Kubernetes Cluster
-
+* Metrics reporting
+* Argo-CD (Continuous Deployment)
 
 ## Running the application in dev mode
 
@@ -61,8 +62,42 @@ docker-compose up -d
 * Check the Swagger UI documentation at [http://localhost:8080/q/swagger-ui](http://localhost:8080/q/swagger-ui)
 
 
+## Deploy application on local dev Cluster
+### Prerequisites:
+* Install [kind](https://kind.sigs.k8s.io/), instead of kind you can also use any other similar utility to spin up local dev k8s clusters like minikube or docker-desktop.
 
-## Deploy Application on Kubernetes
+### Deploy and run
+* Start the dev cluster (a config is provided for specific k8s version)
+```shell
+cd deployment/kubernetes
+kind create cluster --name dev-startmeup --config kind/config.yaml
+
+# check status of nodes
+k get nodes
+```
+* Once cluster is up and running, deploy the app
+```shell
+k create namespace startmeup
+k apply -f startmeup/ --recursive 
+```
+* Monitor the pods to come-up in ready state
+```shell
+k get pods -n startmeup
+```
+
+* Once all pods are ready, port forward to the api
+```shell
+k port-forward service/startmeup-api -n startmeup 8080:80
+```
+
+* Access Swagger docs at `localhost:8080/q/swager-ui`
+
+* Once done, clean up by deleting the cluster
+```shell
+kind delete cluster --name dev-startmeup
+```
+
+## Deploy application on remote Kubernetes Cluster
 
 ### Prerequisites:
 * A fully configured kubernetes cluster with following features:
@@ -73,17 +108,25 @@ docker-compose up -d
 This repo: [openstack-kubernetes](https://github.com/mumeraltaf/openstack-kubernetes) can help set up all of the above on OpenStack using Terraform.
 If using other Cloud provider some changes to configs may be needed, mainly to the Terraform providers, K8s StorageClass and Ingresses.
 
-### Deploy:
+### Deploy by registering with Argo-CD:
 
 Once you have a functional K8s cluster, configure your deployment as follows:
 * Set your own secret values in `deployment/kubernetes/startmeup/secret/startmeup.yaml`, example values are provided
 * Update `deployment/kubernetes/startmeup/ingress/ingress.yaml` with your own host name
 
-Then deploy:
+Then simply register the app with pre-configured Argo-CD:
 ```shell
-cd /deployment/kubernetes/
-kubectl apply startmeup/ns
-kubectl apply -f startmeup/ --recursive
+cd /deployment/kubernetes/argo-cd
+kubectl apply -f startmeup.yaml
+```
+
+If you have kubectl access to the cluster, you can check on the progress of Argo CD piepline using the web-dashboard:
+```shell
+# get password for the UI interface
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+# port-forward to the ArgoCD UI Dashboard, i.e. localhost/8080
+kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
 Wait a couple of minutes for all services to come up and TLS configured, then get the ingress host using:
