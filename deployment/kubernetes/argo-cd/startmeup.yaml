@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/mumeraltaf/quarkus-startmeup.git
     targetRevision: HEAD
-    path: deployment/kubernetes/startmeup/app
+    path: deployment/kubernetes/startmeup
     directory:
       recurse: true
   destination:
@@ -19,5 +19,4 @@ spec:
       prune: false
       selfHeal: false
     syncOptions:
-      - Replace=true
-      - CreateNamespace=false
+      - CreateNamespace=true
