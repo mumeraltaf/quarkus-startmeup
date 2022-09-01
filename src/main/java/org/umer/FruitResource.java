@@ -34,16 +34,4 @@ public class FruitResource {
         }
     }
 
-
-
-    @GET
-    @Path("/dummy")
-    public Response dummyEndpoint() {
-        try {
-            return Response.ok(service.dummyFeature()).build();
-        } catch (Exception e) {
-            throw new InternalServerErrorException();
-        }
-    }
-
 }

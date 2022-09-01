@@ -44,13 +44,5 @@ public class FruitsResourceTest {
         Assertions.assertEquals(fruitInserted.getName(),testFruit.getName());
 
     }
-    @Test
-    public void testDummy() throws Exception {
 
-       String output = fruitService.dummyFeature();
-
-
-        Assertions.assertEquals(output,"new Dummy Value");
-
-    }
 }
