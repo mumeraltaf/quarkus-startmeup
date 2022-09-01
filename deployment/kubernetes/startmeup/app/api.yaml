@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: startmeup-api
-          image: umeraltaf/startmeup:1.0.17-SNAPSHOT
+          image: umeraltaf/startmeup:1.0.18-SNAPSHOT
 
           imagePullPolicy: Always
           resources:
