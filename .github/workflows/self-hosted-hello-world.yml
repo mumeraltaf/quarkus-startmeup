@@ -22,7 +22,3 @@ jobs:
       - name: Get Host Distro
         run: lsb_release -a
 
-      # Runs docker hello-world
-      - name: Secret Message
-        run: echo $MESSAGEPRINT
-
