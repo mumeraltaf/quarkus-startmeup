@@ -45,4 +45,14 @@ public class FruitsResourceTest {
 
     }
 
+    @Test
+    public void simpleAdditionTest() {
+
+        int a = 2;
+        int b = 4;
+
+        Assertions.assertEquals(6,a+b);
+
+    }
+
 }
