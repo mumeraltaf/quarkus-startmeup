@@ -34,4 +34,15 @@ public class FruitResource {
         }
     }
 
+
+    @PUT
+    @Operation(summary = "update Fruit")
+    public Response updateFruit(Fruit fruit) {
+        try {
+            return Response.ok(service.update(fruit)).build();
+        } catch (Exception e) {
+            throw new InternalServerErrorException();
+        }
+    }
+
 }
