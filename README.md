@@ -1,5 +1,7 @@
 # Start-Me-Up
 
+[![Merge to main and push artefacts](https://github.com/mumeraltaf/quarkus-startmeup/actions/workflows/ci-merge-push.yml/badge.svg)](https://github.com/mumeraltaf/quarkus-startmeup/actions/workflows/ci-merge-push.yml)
+
 This is a sample template project that uses [Quarkus](https://quarkus.io/) Java Framework.
 
 Following features have been implemented:
