@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - startmeup.rke2-a.aurin-prod.cloud.edu.au
-      secretName: quickstart-example-tls
+        - startmeup.os-ccm.aurin-prod.cloud.edu.au
+      secretName: startmeup-tls
   rules:
-    - host: startmeup.rke2-a.aurin-prod.cloud.edu.au
+    - host: startmeup.os-ccm.aurin-prod.cloud.edu.au
       http:
         paths:
           - path: /
