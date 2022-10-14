@@ -45,3 +45,11 @@ spec:
                   key: FRUIT_DB_PASSWORD
             - name: FRUIT_DB_PORT
               value: "5432"
+          volumeMounts:
+            - mountPath: /home/jboss/config.json
+              name: config-volume
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: json-config

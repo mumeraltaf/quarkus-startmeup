@@ -11,7 +11,7 @@ resources:
   - ../../startmeup/secret
   - ../../startmeup/svc
   - ../../startmeup/ingress
-
+  - ../../startmeup/configmap
 patches:
   - target:
       kind: Ingress
