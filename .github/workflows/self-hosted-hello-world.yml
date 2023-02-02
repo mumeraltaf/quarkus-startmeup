@@ -22,7 +22,7 @@ jobs:
           ssh-key:  ${{ secrets.CD_DEPLOY_KEY }}
       # Runs a single command using the runners shell
       - name: cd to repo
-        run: cd /infra-platform-cd
+        run: cd ./infra-platform-cd
       - name: add line to readme
         run: echo "test" >> README.md
       - name: GIT commit and push all changed files
