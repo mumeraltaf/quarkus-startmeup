@@ -19,8 +19,8 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: startmeup-staging.os-ccm.aurin-prod.cloud.edu.au
+        value: startmeup-staging.dev.aurin-prod.cloud.edu.au
       - op: replace
         path: /spec/tls/0/hosts/0
-        value: startmeup-staging.os-ccm.aurin-prod.cloud.edu.au
+        value: startmeup-staging.dev.aurin-prod.cloud.edu.au
         

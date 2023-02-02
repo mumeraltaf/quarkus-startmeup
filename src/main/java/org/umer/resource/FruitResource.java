@@ -1,4 +1,4 @@
-package org.umer;
+package org.umer.resource;
 
 import java.util.List;
 import javax.inject.Inject;

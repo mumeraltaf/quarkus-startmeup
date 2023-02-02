@@ -1,4 +1,4 @@
-package org.umer;
+package org.umer.resource;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -18,7 +18,7 @@ public class ReactiveGreetingResource {
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello, I am updated fully using CI/CD now!";
+        return "Hello, I am updated fully using CI/CD now!, 2Feb";
     }
 
     @GET
