@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Runner
         run: lscpu
       - name: Set up JDK 17
@@ -28,7 +28,7 @@ jobs:
         run: echo "PROJECT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_ENV
       - name: Output image tag
         id: output-tag
-        run: echo "::set-output name=image_tag::${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}"
+        run: echo "{name}={${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}}" >> $GITHUB_OUTPUT
       - name: Build Container Image and Push to Repo
         run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true -Dquarkus.container-image.tag=${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}
         env:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: AURIN-OFFICE/infra-platform-cd
           ssh-key: ${{ secrets.CD_DEPLOY_KEY }}
