@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: AURIN-OFFICE/infra-platform-cd
-          ssh-key:  ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
+          ssh-key:  ${{ secrets.CD_DEPLOY_KEY }}
       # Runs a single command using the runners shell
       - name: cd to repo
         run: cd /infra-platform-cd
@@ -30,7 +30,7 @@ jobs:
           CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
           CI_COMMIT_AUTHOR: Continuous Integration
         run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.name "Umer"
           git config --global user.email "umeraltaf@gmail.com"
           git commit -a -m "test"
           git push
