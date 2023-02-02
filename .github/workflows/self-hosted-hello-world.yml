@@ -15,22 +15,14 @@ jobs:
     environment: build
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        with:
-          repository: AURIN-OFFICE/infra-platform-cd
-          ssh-key:  ${{ secrets.CD_DEPLOY_KEY }}
-      # Runs a single command using the runners shell
-      - name: cd to repo
-        run: ls
-      - name: add line to readme
-        run: echo "test" >> README.md
+      - uses: actions/checkout@v3
+      - name: cd to startmeup kustomization dir
+        run: cd ./test-kustomize
+      - run: |
+          cat ./kustomization.yaml
+      - uses: imranismail/setup-kustomize@v2
+      - run: |
+          cd ./test-kustomize && kustomize edit set image umeraltaf/startmeup:tests
       - name: GIT commit and push all changed files
-        env:
-          CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
-          CI_COMMIT_AUTHOR: Continuous Integration
-        run: |
-          git config --global user.name "Umer"
-          git config --global user.email "umeraltaf@gmail.com"
-          git commit -a -m "Auto Deploy to Dev Startmeup"
-          git push
+      - run: |
+          cat ./kustomization.yaml
