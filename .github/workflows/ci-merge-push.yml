@@ -35,6 +35,8 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_REGISTRY: ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
           QUARKUS_CONTAINER_IMAGE_USERNAME: ${{ secrets.QUARKUS_CONTAINER_IMAGE_USERNAME }}
           QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{ secrets.QUARKUS_CONTAINER_IMAGE_PASSWORD }}
+    outputs:
+      image_tag: ${{ steps.output-tag.outputs.image_tag }}
   deploy-to-dev:
     needs: push
     runs-on: ubuntu-latest
