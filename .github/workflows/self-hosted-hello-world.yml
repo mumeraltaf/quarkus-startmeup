@@ -19,10 +19,10 @@ jobs:
       - name: cd to startmeup kustomization dir
         run: cd ./test-kustomize
       - run: |
-          cat ./kustomization.yaml
+          cat ./test-kustomize/kustomization.yaml
       - uses: imranismail/setup-kustomize@v2
       - run: |
           cd ./test-kustomize && kustomize edit set image umeraltaf/startmeup:tests
       - name: GIT commit and push all changed files
         run: |
-          cat ./kustomization.yaml
+          cat ./test-kustomize/kustomization.yaml
