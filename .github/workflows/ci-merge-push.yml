@@ -26,6 +26,11 @@ jobs:
         run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Get project version from pom
         run: echo "PROJECT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_ENV
+      - name: Output image tag
+        id: output-tag
+        run: echo "::set-output name=image_tag::${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}"
+        outputs:
+          image_tag: ${{ steps.output-tag.outputs.image_tag }}
       - name: Build Container Image and Push to Repo
         run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true -Dquarkus.container-image.tag=${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}
         env:
@@ -45,7 +50,7 @@ jobs:
         run: cd ./apps/dev/apps/startmeup/
       - uses: imranismail/setup-kustomize@v2
       - run: |
-          cd ./apps/dev/apps/startmeup/ && kustomize edit set image umeraltaf/startmeup:${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}
+          cd ./apps/dev/apps/startmeup/ && kustomize edit set image umeraltaf/startmeup:${{ needs.push.outputs.output-tag }}
       - name: GIT commit and push all changed files
         run: |
           git add .
