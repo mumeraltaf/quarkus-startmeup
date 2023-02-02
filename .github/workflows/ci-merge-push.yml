@@ -28,7 +28,7 @@ jobs:
         run: echo "PROJECT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_ENV
       - name: Output image tag
         id: output-tag
-        run: echo "{name}={${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}}" >> $GITHUB_OUTPUT
+        run: echo "{image_tag}={${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}}" >> $GITHUB_OUTPUT
       - name: Build Container Image and Push to Repo
         run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true -Dquarkus.container-image.tag=${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}
         env:
