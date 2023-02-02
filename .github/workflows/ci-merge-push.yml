@@ -22,8 +22,12 @@ jobs:
         uses: docker/setup-buildx-action@v2
         with:
           buildkitd-flags: --debug
+      - name: Get git hash
+        run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - name: Get project version from pom
+        run: echo "PROJECT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_ENV
       - name: Build Container Image and Push to Repo
-        run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true
+        run: ./mvnw clean package -DskipTests=true -Dquarkus.container-image.push=true -Dquarkus.container-image.tag=PROJECT_VERSION-GIT_HASH
         env:
           QUARKUS_CONTAINER_IMAGE_REGISTRY: ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
           QUARKUS_CONTAINER_IMAGE_USERNAME: ${{ secrets.QUARKUS_CONTAINER_IMAGE_USERNAME }}
