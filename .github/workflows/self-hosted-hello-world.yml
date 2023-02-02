@@ -18,7 +18,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         repository: AURIN-OFFICE/infra-platform-cd
-        key:  ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
+        ssh-key:  ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
       # Runs a single command using the runners shell
       - name: cd to repo
         run: cd /infra-platform-cd
