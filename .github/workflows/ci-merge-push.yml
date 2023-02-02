@@ -32,3 +32,24 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_REGISTRY: ${{ secrets.QUARKUS_CONTAINER_IMAGE_REGISTRY }}
           QUARKUS_CONTAINER_IMAGE_USERNAME: ${{ secrets.QUARKUS_CONTAINER_IMAGE_USERNAME }}
           QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{ secrets.QUARKUS_CONTAINER_IMAGE_PASSWORD }}
+  deploy-to-dev:
+    needs: push
+    runs-on: ubuntu-latest
+    environment: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: AURIN-OFFICE/infra-platform-cd
+          ssh-key: ${{ secrets.CD_DEPLOY_KEY }}
+      - name: cd to startmeup kustomization dir
+        run: cd ./apps/dev/apps/startmeup
+      - uses: imranismail/setup-kustomize@v2
+      - run: |
+          kustomize edit set image umeraltaf/startmeup:${{ env.PROJECT_VERSION }}-${{ env.GIT_HASH }}
+      - name: GIT commit and push all changed files
+        run: |
+          git add .
+          git config --global user.name "Umer"
+          git config --global user.email "umeraltaf@gmail.com"
+          git commit -a -m "Auto Deploy to Dev Startmeup"
+          git push

@@ -32,5 +32,5 @@ jobs:
         run: |
           git config --global user.name "Umer"
           git config --global user.email "umeraltaf@gmail.com"
-          git commit -a -m "test"
+          git commit -a -m "Auto Deploy to Dev Startmeup"
           git push
