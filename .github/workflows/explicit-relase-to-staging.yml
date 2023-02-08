@@ -32,7 +32,7 @@ jobs:
           GeoServer Tag: ${{ github.event.inputs.geoserver-tag }} \
           UPS Tag: ${{ github.event.inputs.ups-tag }} \
           UI EndUser Tag: ${{ github.event.inputs.dashboard-ui-enduser-tag }} \
-          UI Admin Tag: ${{ github.event.inputs.dashboard-ui-admin-tag }} ")  >> $GITHUB_ENV
+          UI Admin Tag: ${{ github.event.inputs.dashboard-ui-admin-tag }} )"  >> $GITHUB_ENV
       - name: Print Release Info
         run: |
           echo ${{ env.RELEASE_MESSAGE }}
