@@ -27,15 +27,15 @@ jobs:
       - name: Release Info
         run: |
           echo "RELEASE_MESSAGE<<EOF" >> $GITHUB_ENV
-          echo "This will create a release with following versions:" >> $GITHUB_ENV
-          echo "ADP Release Version: ${{ github.event.inputs.release-version }}" >> $GITHUB_ENV
-          echo "Auth Tag: ${{ github.event.inputs.auth-tag }}" >> $GITHUB_ENV
-          echo "RoleGen Tag: ${{ github.event.inputs.geo-role-gen-tag }}" >> $GITHUB_ENV
-          echo "GeoServer Tag: ${{ github.event.inputs.geoserver-tag }}" >> $GITHUB_ENV
-          echo "UPS Tag: ${{ github.event.inputs.ups-tag }}" >> $GITHUB_ENV
-          echo "UI EndUser Tag: ${{ github.event.inputs.dashboard-ui-enduser-tag }}" >> $GITHUB_ENV
-          echo "UI Admin Tag: ${{ github.event.inputs.dashboard-ui-admin-tag }}" >> $GITHUB_ENV
+          echo "This will create a release with following versions: \n" >> $GITHUB_ENV
+          echo "ADP Release Version: ${{ github.event.inputs.release-version }} \n" >> $GITHUB_ENV
+          echo "Auth Tag: ${{ github.event.inputs.auth-tag }} \n" >> $GITHUB_ENV
+          echo "RoleGen Tag: ${{ github.event.inputs.geo-role-gen-tag }} \n" >> $GITHUB_ENV
+          echo "GeoServer Tag: ${{ github.event.inputs.geoserver-tag }} \n" >> $GITHUB_ENV
+          echo "UPS Tag: ${{ github.event.inputs.ups-tag }} \n" >> $GITHUB_ENV
+          echo "UI EndUser Tag: ${{ github.event.inputs.dashboard-ui-enduser-tag }} \n" >> $GITHUB_ENV
+          echo "UI Admin Tag: ${{ github.event.inputs.dashboard-ui-admin-tag }} \n" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Print Release Info
         run: |
-          echo ${{ env.RELEASE_MESSAGE }}
+          echo -e ${{ env.RELEASE_MESSAGE }}
