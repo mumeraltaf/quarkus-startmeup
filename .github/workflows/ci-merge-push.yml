@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  push:
+  build:
     runs-on: ubuntu-latest
     environment: build
     steps:
@@ -38,8 +38,24 @@ jobs:
           QUARKUS_CONTAINER_IMAGE_PASSWORD: ${{ secrets.QUARKUS_CONTAINER_IMAGE_PASSWORD }}
     outputs:
       image_tag: ${{ steps.output-tag.outputs.image_tag }}
+  create-release:
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ needs.build.outputs.image_tag }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }
   deploy-to-dev:
-    needs: push
+    needs: create-release
     runs-on: ubuntu-latest
     environment: build
     steps:
@@ -53,7 +69,7 @@ jobs:
           echo ${{ needs.push.outputs.image_tag }}
       - uses: imranismail/setup-kustomize@v2
       - run: |
-          cd ./apps/dev/apps/startmeup/ && kustomize edit set image umeraltaf/startmeup:${{ needs.push.outputs.image_tag }}
+          cd ./apps/dev/apps/startmeup/ && kustomize edit set image umeraltaf/startmeup:${{ needs.build.outputs.image_tag }}
       - name: GIT commit and push all changed files
         run: |
           git add .
