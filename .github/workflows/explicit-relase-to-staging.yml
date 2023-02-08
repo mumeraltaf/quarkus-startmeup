@@ -26,13 +26,13 @@ jobs:
     steps:
       - name: Release Info
         run: |
-          echo "RELEASE_MESSAGE=$(This will create a release with following versions: /n
-          ADP Release Version: ${{ github.event.inputs.release-version }} /n
-          Auth Tag: ${{ github.event.inputs.auth-tag }} /n
-          RoleGen Tag: ${{ github.event.inputs.geo-role-gen-tag }} /n
-          GeoServer Tag: ${{ github.event.inputs.geoserver-tag }} /n
-          UPS Tag: ${{ github.event.inputs.ups-tag }} /n
-          UI EndUser Tag: ${{ github.event.inputs.dashboard-ui-enduser-tag }} /n
+          echo "RELEASE_MESSAGE=$(This will create a release with following versions: /n \
+          ADP Release Version: ${{ github.event.inputs.release-version }} /n \
+          Auth Tag: ${{ github.event.inputs.auth-tag }} /n \
+          RoleGen Tag: ${{ github.event.inputs.geo-role-gen-tag }} /n \
+          GeoServer Tag: ${{ github.event.inputs.geoserver-tag }} /n \
+          UPS Tag: ${{ github.event.inputs.ups-tag }} /n \
+          UI EndUser Tag: ${{ github.event.inputs.dashboard-ui-enduser-tag }} /n \
           UI Admin Tag: ${{ github.event.inputs.dashboard-ui-admin-tag }} )"  >> $GITHUB_ENV
       - name: Print Release Info
         run: |
