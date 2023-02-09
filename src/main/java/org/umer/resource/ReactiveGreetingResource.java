@@ -18,7 +18,7 @@ public class ReactiveGreetingResource {
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello, I am updated fully using CI/CD now!, 8Feb";
+        return "Hello, I am updated fully using CI/CD now!, 9Feb";
     }
 
     @GET
