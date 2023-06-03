@@ -58,6 +58,18 @@ public class FruitsResourceTest {
 
 
     @Test
+    public void simpleMultiplicationTest() {
+
+        int a = 2;
+        int b = 4;
+
+        Assertions.assertEquals(8,a*b);
+
+    }
+
+
+
+    @Test
     public void updateFruitTest() throws Exception {
 
         Fruit testFruit = new Fruit("test3", "testRedApple3","red is test3");
