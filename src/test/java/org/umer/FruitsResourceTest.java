@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.umer.domain.Fruit;
 import org.umer.service.FruitService;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 
