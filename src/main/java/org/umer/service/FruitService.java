@@ -1,8 +1,8 @@
 package org.umer.service;
 
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.jdbi.v3.core.Jdbi;
 import org.umer.builder.DatabaseConnector;
 import org.umer.domain.Fruit;

@@ -1,8 +1,8 @@
 package org.umer.builder;
 
 import io.agroal.api.AgroalDataSource;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.postgres.PostgresPlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
